@@ -1,0 +1,22 @@
+export const perSonalInfoValidation=(personalInfo)=>{
+    const errs = {};
+
+    if (!personalInfo.name.trim()) errs.name = "Name is required";
+    if (!personalInfo.email.trim()) {
+      errs.email = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(personalInfo.email)) {
+      errs.email = "Invalid email format";
+    }
+
+    if (!personalInfo.phone.trim()) {
+      errs.phone = "Phone number is required";
+    } else if (!/^[0-9]{10}$/.test(personalInfo.phone)) {
+      errs.phone = "Phone number must be 10 digits";
+    }
+
+    if (!personalInfo.title.trim()) {
+      errs.title = "Title is required";
+    }
+
+    return errs
+}

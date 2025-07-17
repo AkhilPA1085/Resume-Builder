@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import { Button } from "@heroui/button";
 import { useRouter } from "next/navigation";
 import { TAB_KEYS } from "@/helpers/constants";
+import { resumeStore, usePersonalInfoStore } from "@/store/store";
+import {perSonalInfoValidation} from "@/helpers/validations"
 
 export default function CustomTab() {
   const [formData, setFormData] = useState({
@@ -62,6 +64,8 @@ export default function CustomTab() {
 
   const [selectedTab, setSelectedTab] = useState("personal-info");
 
+  const {personalInfo} = resumeStore() 
+
   useEffect(() => {
     const data = localStorage.getItem("resumeData");
     const resumeData = data ? JSON.parse(data) : null;
@@ -74,11 +78,27 @@ export default function CustomTab() {
     setSelectedTab(value);
   };
 
-  const handleNextTabChange = () => {
-    const currentTab = TAB_KEYS.indexOf(selectedTab);
-    const nextTab = currentTab + 1;
-    if (nextTab < TAB_KEYS.length) {
-      setSelectedTab(TAB_KEYS[nextTab]);
+  const handleNextTabChange = (formName) => {
+    let errs;
+    switch(formName){
+      case 'personal-info':
+        errs=perSonalInfoValidation(personalInfo)
+        break;
+    }
+    if (Object.keys(errs).length > 0) {
+      console.log('errs',errs)
+      addToast({
+        title: "Error",
+        description: "Please fill all the required fields before submit",
+        color: "danger",
+      });
+      setErrors(errs);
+    } else {
+      const currentTab = TAB_KEYS.indexOf(selectedTab);
+      const nextTab = currentTab + 1;
+      if (nextTab < TAB_KEYS.length) {
+        setSelectedTab(TAB_KEYS[nextTab]);
+      }
     }
   };
 
@@ -90,17 +110,21 @@ export default function CustomTab() {
     const errs = {};
 
     // Personal Info
-    if (!formData.name.trim()) errs.name = "Name is required";
-    if (!formData.email.trim()) {
+    if (!personalInfo.name.trim()) errs.name = "Name is required";
+    if (!personalInfo.email.trim()) {
       errs.email = "Email is required";
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+    } else if (!/^\S+@\S+\.\S+$/.test(personalInfo.email)) {
       errs.email = "Invalid email format";
     }
 
-    if (!formData.phone.trim()) {
+    if (!personalInfo.phone.trim()) {
       errs.phone = "Phone number is required";
-    } else if (!/^[0-9]{10}$/.test(formData.phone)) {
+    } else if (!/^[0-9]{10}$/.test(personalInfo.phone)) {
       errs.phone = "Phone number must be 10 digits";
+    }
+
+    if (!personalInfo.title.trim()) {
+      errs.title = "Title is required";
     }
 
     // Education
@@ -309,8 +333,6 @@ export default function CustomTab() {
             <Card>
               <CardBody>
                 <PersonalInfoForm
-                  data={formData}
-                  onChange={handleChange}
                   errors={errors}
                 />
               </CardBody>
@@ -382,7 +404,7 @@ export default function CustomTab() {
 
         <div className="flex justify-end gap-4 mt-4">
           {selectedTab !== "summary-info" && (
-            <Button onPress={handleNextTabChange} variant="flat">
+            <Button onPress={()=>handleNextTabChange(selectedTab)} variant="flat">
               Next
             </Button>
           )}
