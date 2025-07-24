@@ -14,8 +14,10 @@ import { TAB_KEYS } from "@/helpers/constants";
 import { resumeStore, usePersonalInfoStore } from "@/store/store";
 import {
   educationInfoValidation,
+  experienceInfoValidation,
   perSonalInfoValidation,
 } from "@/helpers/validations";
+import { useResumeStore } from "@/store/useResumeStore";
 
 export default function CustomTab() {
   const [formData, setFormData] = useState({
@@ -67,7 +69,7 @@ export default function CustomTab() {
 
   const [selectedTab, setSelectedTab] = useState("personal-info");
 
-  const { personalInfo, educationInfo } = resumeStore();
+  const { personalInfo, educationInfo, experience } = useResumeStore();
 
   // useEffect(() => {
   //   const data = localStorage.getItem("resumeData");
@@ -89,6 +91,9 @@ export default function CustomTab() {
         break;
       case "education-info":
         errs = educationInfoValidation(educationInfo);
+        break;
+      case "experience-info":
+        errs = {};
         break;
     }
     if (Object.keys(errs).length > 0) {
@@ -338,26 +343,20 @@ export default function CustomTab() {
           <Tab key="education-info" title="Education Info">
             <Card>
               <CardBody>
-                <EducationFrom
-                  // addEducation={addEducation}
-                  // removeEducation={removeEducation}
+                <EducationFrom errors={errors} />
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="experience-info" title="Experience Info">
+            <Card>
+              <CardBody>
+                <ExperienceFrom
                   errors={errors}
                 />
               </CardBody>
             </Card>
           </Tab>
-          {/* <Tab key="experience-info" title="Experience Info">
-            <Card>
-              <CardBody>
-                <ExperienceFrom
-                  data={formData.experience}
-                  onChange={handleExperienceChange}
-                  addExperience={addExperience}
-                  removeExperience={removeExperience}
-                />
-              </CardBody>
-            </Card>
-          </Tab>
+          {/* 
           <Tab key="certification-info" title="Certification Info">
             <Card>
               <CardBody>

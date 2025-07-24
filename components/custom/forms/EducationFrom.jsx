@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, Button } from "@heroui/react";
-import { resumeStore } from "@/store/store";
+import { useResumeStore } from "@/store/useResumeStore";
 
 export default function EducationForm({ errors }) {
   const {
@@ -8,7 +8,7 @@ export default function EducationForm({ errors }) {
     updateEducationInfo,
     removeEducationInfo,
     addEducationInfo,
-  } = resumeStore();
+  } = useResumeStore();
 
   const getFieldError = (index, field) =>
     errors?.[`education_${index}_${field}`];

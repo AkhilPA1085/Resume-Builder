@@ -21,16 +21,47 @@ export const perSonalInfoValidation = (personalInfo) => {
   return errs;
 };
 
-
-export const educationInfoValidation = (educationInfo) =>{
-  const errs={}
+export const educationInfoValidation = (educationInfo) => {
+  const errs = {};
   educationInfo.forEach((edu, i) => {
     if (!edu.degree.trim()) errs[`education_${i}_degree`] = "Degree required";
     if (!edu.stream.trim()) errs[`education_${i}_stream`] = "Stream required";
-    if (!edu.university.trim()) errs[`education_${i}_university`] = "University required";
-    if (!edu.duration.trim()) errs[`education_${i}_duration`] = "Duration required";
-    if (!edu.location.trim()) errs[`education_${i}_location`] = "Location required";
+    if (!edu.university.trim())
+      errs[`education_${i}_university`] = "University required";
+    if (!edu.duration.trim())
+      errs[`education_${i}_duration`] = "Duration required";
+    if (!edu.location.trim())
+      errs[`education_${i}_location`] = "Location required";
   });
 
   return errs;
-}
+};
+
+export const experienceInfoValidation = (experience) => {
+  const errs = {};
+
+  experience.forEach((exp, index) => {
+    if (!exp.jobTitle.trim()) {
+      errs[`experience_${index}_jobTitle`] = "Job title is required";
+    }
+
+    if (!exp.company.trim()) {
+      errs[`experience_${index}_company`] = "Company name is required";
+    }
+
+    if (!exp.expDuration.trim()) {
+      errs[`experience_${index}_expDuration`] = "Duration is required";
+    }
+
+    if (!exp.expLocation.trim()) {
+      errs[`experience_${index}_expLocation`] = "Location is required";
+    }
+
+    if (!exp.jobDescription.trim()) {
+      errs[`experience_${index}_jobDescription`] = "Job description is required";
+    }
+  });
+
+  return errs;
+};
+
