@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input } from "@heroui/react";
-import { resumeStore } from "@/store/store";
+// import { resumeStore } from "@/store/store";
 import { useResumeStore } from "@/store/useResumeStore";
 
 export default function PersonalInfoForm({errors }) {

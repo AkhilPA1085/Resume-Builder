@@ -3,14 +3,19 @@ import {
   createPersonalInfoSlice,
   PersonalInfoSlice,
 } from "./personalInfoSlice";
-import { createEducationInfoSlice,EducationInfoSlice } from "./educationInfoSlice";
-import {createExperienceSlice } from "@/store/experienceSlice"
-import { ExperienceSlice } from "./types";
+import { createEducationInfoSlice } from "./educationInfoSlice";
+import { createExperienceSlice } from "@/store/experienceSlice";
+import { CertificateSlice, EducationInfoSlice, ExperienceSlice } from "./types";
+import { createCertificateSlice } from "./certificateInfoSlice";
 
-type ResumeStore = PersonalInfoSlice & EducationInfoSlice & ExperienceSlice;
+type ResumeStore = PersonalInfoSlice &
+  EducationInfoSlice &
+  ExperienceSlice &
+  CertificateSlice;
 
 export const useResumeStore = create<ResumeStore>()((...item) => ({
   ...createPersonalInfoSlice(...item),
   ...createEducationInfoSlice(...item),
-  ...createExperienceSlice(...item)
+  ...createExperienceSlice(...item),
+  ...createCertificateSlice(...item),
 }));

@@ -7,17 +7,12 @@ import CertificationFrom from "@/components/custom/forms/CertificationFrom";
 import SkillFrom from "@/components/custom/forms/SkillFrom";
 import SummaryFrom from "@/components/custom/forms/SummaryFrom";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@heroui/button";
 import { useRouter } from "next/navigation";
-import { TAB_KEYS } from "@/helpers/constants";
-import { resumeStore, usePersonalInfoStore } from "@/store/store";
-import {
-  educationInfoValidation,
-  experienceInfoValidation,
-  perSonalInfoValidation,
-} from "@/helpers/validations";
+import { TAB_KEYS } from "@/utils/constants";
 import { useResumeStore } from "@/store/useResumeStore";
+import { validateFields } from "@/utils/validateFields";
 
 export default function CustomTab() {
   const [formData, setFormData] = useState({
@@ -71,33 +66,33 @@ export default function CustomTab() {
 
   const { personalInfo, educationInfo, experience } = useResumeStore();
 
-  // useEffect(() => {
-  //   const data = localStorage.getItem("resumeData");
-  //   const resumeData = data ? JSON.parse(data) : null;
-  //   if (resumeData) {
-  //     setFormData(resumeData);
-  //   }
-  // }, []);
-
   const handleTabChange = (value) => {
     setSelectedTab(value);
   };
 
   const handleNextTabChange = (formName) => {
-    let errs;
-    switch (formName) {
-      case "personal-info":
-        errs = perSonalInfoValidation(personalInfo);
-        break;
-      case "education-info":
-        errs = educationInfoValidation(educationInfo);
-        break;
-      case "experience-info":
-        errs = {};
-        break;
+    const typeMap = {
+      "personal-info": "personal",
+      "education-info": "education",
+      // "experience-info": "experience",
+    };
+  
+    const validationType = typeMap[formName];
+  
+    if (!validationType) {
+      console.warn(`Unknown form name: ${formName}`);
+      return;
     }
+  
+    const dataMap = {
+      personal: personalInfo,
+      education: educationInfo,
+      // experience: experience,
+    };
+  
+    const errs = validateFields(dataMap[validationType], validationType);
+
     if (Object.keys(errs).length > 0) {
-      console.log("errs", errs);
       addToast({
         title: "Error",
         description: "Please fill all the required fields before submit",
@@ -351,6 +346,15 @@ export default function CustomTab() {
             <Card>
               <CardBody>
                 <ExperienceFrom
+                  errors={errors}
+                />
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="certification-info" title="Certification Info">
+            <Card>
+              <CardBody>
+                <CertificationFrom
                   errors={errors}
                 />
               </CardBody>

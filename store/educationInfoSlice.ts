@@ -1,14 +1,5 @@
 import { StateCreator } from "zustand";
-import { EducationInfoState } from "./types";
-
-export type EducationInfoSlice = {
-  educationInfo: EducationInfoState[];
-  updateEducationInfo: (
-    index: number,
-    field: keyof EducationInfoState,
-    value: string
-  ) => void;
-};
+import { EducationInfoSlice } from "./types";
 
 export const createEducationInfoSlice: StateCreator<
   EducationInfoSlice,

@@ -21,6 +21,21 @@ export type Experience = {
   jobDescription: string;
 };
 
+export type Certificates = {
+  certName: string;
+  certOrg: string;
+  certDate: string;
+};
+
+export type EducationInfoSlice = {
+  educationInfo: EducationInfoState[];
+  updateEducationInfo: (
+    index: number,
+    field: keyof EducationInfoState,
+    value: string
+  ) => void;
+};
+
 export type ExperienceSlice = {
   experience: Experience[];
   updateExperience: (
@@ -30,4 +45,15 @@ export type ExperienceSlice = {
   ) => void;
   addExperience: () => void;
   removeExperience: (index: number) => void;
+};
+
+export type CertificateSlice = {
+  certificates: Certificates[];
+  updateCertificate?: (
+    index: number,
+    field: keyof Certificates,
+    value: string
+  ) => void;
+  addCertificate?: () => void;
+  removeCertificate?: (index: number) => void;
 };
