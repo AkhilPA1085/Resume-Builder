@@ -1,6 +1,7 @@
 'use client'
 import React, { useRef } from "react";
 import { Button } from "@heroui/button";
+import { useResumeStore } from "../../../store/useResumeStore";
 
 
 const DownloadIcon=()=>{
@@ -12,6 +13,8 @@ const DownloadIcon=()=>{
 }
 
 const TemplateOne = ({data}) => {
+  const { personalInfo, educationInfo, experience,skills, certificates, summary } =
+      useResumeStore();
   const resumeRef = useRef();
 
   const handlePrint = () => {
@@ -46,17 +49,17 @@ const TemplateOne = ({data}) => {
       <div ref={resumeRef} className="bg-white max-w-[8.5in] min-h-[11in] mx-auto p-6 print:p-4">
         {/* Header */}
         <div className="text-center mb-6 border-b-2 border-[#2c3e50] pb-4">
-          <div className="text-[28px] font-bold text-[#2c3e50] mb-1 uppercase">{data?.name}</div>
+          <div className="text-[28px] font-bold text-[#2c3e50] mb-1 uppercase">{personalInfo?.name}</div>
           <div className="text-sm text-[#7f8c8d] mb-2">
-            {data?.title}
+            {personalInfo?.title}
           </div>
           <div className="space-x-2 text-[10px] text-[#555]">
-            <a href={`tel:${data?.phone}`} className="hover:underline">
-              {data?.phone}
+            <a href={`tel:${personalInfo?.phone}`} className="hover:underline">
+              {personalInfo?.phone}
             </a>
             |
-            <a href={`mailto:${data?.email}`} className="hover:underline">
-              {data?.email}
+            <a href={`mailto:${personalInfo?.email}`} className="hover:underline">
+              {personalInfo?.email}
             </a>
           </div>
         </div>
@@ -69,7 +72,7 @@ const TemplateOne = ({data}) => {
               <h2 className="text-[13px] font-bold uppercase text-[#2c3e50] border-b border-gray-300 mb-2">
                 Skills
               </h2>
-              {data?.skills?.map((skill,index)=>(
+              {skills?.map((skill,index)=>(
                 <React.Fragment key={index}>
                   <div>
                     <strong>{skill.title}</strong>
@@ -104,7 +107,7 @@ const TemplateOne = ({data}) => {
               <h2 className="text-[13px] font-bold uppercase text-[#2c3e50] border-b border-gray-300 mb-2">
                 Education
               </h2>
-              {data?.education?.map((education,index)=>(
+              {educationInfo?.map((education,index)=>(
                   <div key={index}>
                     <div className="font-bold text-[11px]">{education?.degree}</div>
                     <div className="italic text-[10px] text-[#7f8c8d]">
@@ -127,7 +130,7 @@ const TemplateOne = ({data}) => {
               <h2 className="text-[13px] font-bold uppercase text-[#2c3e50] border-b border-gray-300 mb-2">
                 Certifications
               </h2>
-              {data?.certifications?.map((cert,index)=>(
+              {certificates?.map((cert,index)=>(
                   <div className="mb-2" key={index}>
                   <div className="font-bold text-[11px]">{cert?.certName}</div>
                   <div className="italic text-[10px] text-[#7f8c8d]">{cert?.certOrg}</div>
@@ -145,7 +148,7 @@ const TemplateOne = ({data}) => {
                 Professional Summary
               </h2>
               <p className="text-justify">
-                {data?.summary}
+                {summary?.personalSummary}
               </p>
             </section>
 
@@ -154,7 +157,7 @@ const TemplateOne = ({data}) => {
               <h2 className="text-[13px] font-bold uppercase text-[#2c3e50] border-b border-gray-300 mb-2">
                 Professional Experience
               </h2>
-              {data?.experience?.map((job, idx) => (
+              {experience?.map((job, idx) => (
                 <div key={idx} className="mb-4">
                   <div className="font-bold text-[12px] text-[#2c3e50]">{job.jobTitle}</div>
                   <div className="italic text-[11px] text-[#7f8c8d]">{job.company}</div>

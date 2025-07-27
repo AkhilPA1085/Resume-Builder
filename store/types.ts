@@ -1,30 +1,21 @@
-export type PersonalInfoState = {
+type PersonalInfoState = {
   name: string;
   title: string;
   phone: string;
   email: string;
 };
 
-export type EducationInfoState = {
+export type PersonalInfoSlice = {
+  personalInfo: PersonalInfoState;
+  updatePersonalInfo: (field: keyof PersonalInfoState, value: string) => void;
+};
+
+type EducationInfoState = {
   degree: string;
   stream: string;
   university: string;
   duration: string;
   location: string;
-};
-
-export type Experience = {
-  jobTitle: string;
-  company: string;
-  expDuration: string;
-  expLocation: string;
-  jobDescription: string;
-};
-
-export type Certificates = {
-  certName: string;
-  certOrg: string;
-  certDate: string;
 };
 
 export type EducationInfoSlice = {
@@ -34,6 +25,14 @@ export type EducationInfoSlice = {
     field: keyof EducationInfoState,
     value: string
   ) => void;
+};
+
+type Experience = {
+  jobTitle: string;
+  company: string;
+  expDuration: string;
+  expLocation: string;
+  jobDescription: string;
 };
 
 export type ExperienceSlice = {
@@ -47,6 +46,12 @@ export type ExperienceSlice = {
   removeExperience: (index: number) => void;
 };
 
+type Certificates = {
+  certName: string;
+  certOrg: string;
+  certDate: string;
+};
+
 export type CertificateSlice = {
   certificates: Certificates[];
   updateCertificate?: (
@@ -57,3 +62,26 @@ export type CertificateSlice = {
   addCertificate?: () => void;
   removeCertificate?: (index: number) => void;
 };
+
+type SkillsState = {
+  title: string;
+  description: string;
+};
+
+export type SkillsSlice ={
+  skills:SkillsState[];
+  updateSkills?:(index:number,field:keyof SkillsState,value:string)=>void;
+  addSkills?:()=>void;
+  removeSkills?:(index:number)=>void
+}
+
+
+type SummaryState={
+  personalSummary:string;
+  jobDescription?:string;
+}
+
+export type SummarySlice={
+  summary:SummaryState;
+  updateSummary:(field:keyof SummaryState,value:string)=>void;
+}

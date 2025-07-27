@@ -4,8 +4,13 @@ import { Button } from "@heroui/button";
 import { useResumeStore } from "@/store/useResumeStore";
 
 export default function CertificationForm({ errors }) {
+  console.log('certificate_errors',errors)
   const { certificates, updateCertificate, addCertificate, removeCertificate } =
     useResumeStore();
+
+  const getFieldError = (index, field) =>
+    errors?.[`certificate_${index}_${field}`];
+
   return (
     <div className="mb-6">
       <h2 className="text-lg font-bold mb-4">Certifications</h2>
@@ -20,19 +25,31 @@ export default function CertificationForm({ errors }) {
               label="Certification Name"
               name="certName"
               value={data.certName}
-              onChange={(e) => updateCertificate(index,e.target.name,e.target.value)}
+              onChange={(e) =>
+                updateCertificate(index, e.target.name, e.target.value)
+              }
+              isInvalid={!!getFieldError(index, "certName")}
+              errorMessage={getFieldError(index, "certName")}
             />
             <Input
               label="Organization"
               name="certOrg"
               value={data.certOrg}
-              onChange={(e) => updateCertificate(index,e.target.name,e.target.value)}
+              onChange={(e) =>
+                updateCertificate(index, e.target.name, e.target.value)
+              }
+              isInvalid={!!getFieldError(index, "certOrg")}
+              errorMessage={getFieldError(index, "certOrg")}
             />
             <Input
               label="Issued Date"
               name="certDate"
               value={data.certDate}
-              onChange={(e) => updateCertificate(index,e.target.name,e.target.value)}
+              onChange={(e) =>
+                updateCertificate(index, e.target.name, e.target.value)
+              }
+              isInvalid={!!getFieldError(index, "certDate")}
+              errorMessage={getFieldError(index, "certDate")}
             />
             <Button
               variant="flat"

@@ -1,11 +1,5 @@
 import { StateCreator } from "zustand";
-import { PersonalInfoState } from "./types";
-
-
-export type PersonalInfoSlice = {
-  personalInfo: PersonalInfoState;
-  updatePersonalInfo: (field: keyof PersonalInfoState, value: string) => void;
-};
+import { PersonalInfoSlice } from "./types";
 
 export const createPersonalInfoSlice: StateCreator<
   PersonalInfoSlice,

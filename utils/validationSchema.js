@@ -68,5 +68,13 @@ export const validationSchemas = {
             errors[`certificate_${i}_certDate`] = "Certificate Date is required";
     });
     return errors;
+  },
+
+  summary:(data)=>{
+    const errors={}
+    data.forEach((item,i)=>{
+        if(!item.summary.trim()) errors.summary = 'Add a summary about yourself'
+    })
   }
+
 };

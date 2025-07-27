@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { ExperienceSlice, Experience } from "./types";
+import { ExperienceSlice } from "./types";
 
 export const createExperienceSlice: StateCreator<
   ExperienceSlice,
