@@ -2,6 +2,8 @@
 import React, { useRef } from "react";
 import { Button } from "@heroui/button";
 import { useResumeStore } from "../../../store/useResumeStore";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 
 const DownloadIcon=()=>{
@@ -17,14 +19,21 @@ const TemplateOne = ({data}) => {
       useResumeStore();
   const resumeRef = useRef();
 
-  const handlePrint = () => {
-    const printContents = resumeRef.current.innerHTML;
-    const originalContents = document.body.innerHTML;
-
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
-    window.location.reload();
+  const handleDownloadPDF = async () => {
+    const element = resumeRef.current;
+  
+    if (!element) return;
+  
+    const canvas = await html2canvas(element, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+  
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+  
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("resume.pdf");
   };
   return (
     <div className="text-[11px] font-sans text-[#333] leading-[1.4] print:text-black print:bg-white">
@@ -38,7 +47,7 @@ const TemplateOne = ({data}) => {
 
       <Button
       // className="fixed top-5 right-5"
-      onPress={handlePrint} 
+      onPress={handleDownloadPDF} 
       color="success" 
       endContent={<DownloadIcon />}>
         Download
