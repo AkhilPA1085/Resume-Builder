@@ -6,6 +6,7 @@ import ExperienceFrom from "@/components/custom/forms/ExperienceFrom";
 import CertificationFrom from "@/components/custom/forms/CertificationFrom";
 import SkillFrom from "@/components/custom/forms/SkillFrom";
 import SummaryFrom from "@/components/custom/forms/SummaryFrom";
+import ProjesForm from "@/components/custom/forms/ProjectsForm";
 
 import { useState } from "react";
 import { Button } from "@heroui/button";
@@ -18,8 +19,14 @@ export default function CustomTab() {
   const [errors, setErrors] = useState({});
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState("personal-info");
-  const { personalInfo, educationInfo, experience,skills, certificates, summary } =
-    useResumeStore();
+  const {
+    personalInfo,
+    educationInfo,
+    experience,
+    skills,
+    certificates,
+    summary,
+  } = useResumeStore();
 
   const handleTabChange = (value) => {
     setSelectedTab(value);
@@ -31,10 +38,14 @@ export default function CustomTab() {
       "education-info": "education",
       // "experience-info": "experience",
       "certification-info": "certificates",
-      "summary-info":"summary"
+      "summary-info": "summary",
     };
 
-    if (formName === "experience-info" || formName === "skills-info") {
+    if (
+      formName === "experience-info" ||
+      formName === "skills-info" ||
+      formName === "project-info"
+    ) {
       const currentTab = TAB_KEYS.indexOf(selectedTab);
       const nextTab = currentTab + 1;
       if (nextTab < TAB_KEYS.length) {
@@ -55,7 +66,7 @@ export default function CustomTab() {
       education: educationInfo,
       // experience: experience,
       certificates: certificates,
-      summary:summary
+      summary: summary,
     };
 
     const errs = validateFields(dataMap[validationType], validationType);
@@ -77,7 +88,7 @@ export default function CustomTab() {
   };
 
   const handleSubmit = () => {
-    router.push('/templates')
+    router.push("/templates");
   };
 
   return (
@@ -109,6 +120,13 @@ export default function CustomTab() {
               </CardBody>
             </Card>
           </Tab>
+          <Tab key="project-info" title="Projects">
+            <Card>
+              <CardBody>
+                <ProjesForm errors={errors} />
+              </CardBody>
+            </Card>
+          </Tab>
           <Tab key="certification-info" title="Certification Info">
             <Card>
               <CardBody>
@@ -123,13 +141,11 @@ export default function CustomTab() {
               </CardBody>
             </Card>
           </Tab>
-          
+
           <Tab key="summary-info" title="Summary Info">
             <Card>
               <CardBody>
-                <SummaryFrom
-                  errors={errors}
-                />
+                <SummaryFrom errors={errors} />
               </CardBody>
             </Card>
           </Tab>

@@ -85,3 +85,21 @@ export type SummarySlice={
   summary:SummaryState;
   updateSummary:(field:keyof SummaryState,value:string)=>void;
 }
+
+type Projects = {
+  projectTitle: string;
+  projectDescription: string;
+  hostUrl: string;
+  gitHub: string;
+};
+
+export type ProjectsSlice = {
+  project: Projects[];
+  updateProject: (
+    index: number,
+    field: keyof Projects,
+    value: string
+  ) => void;
+  addProject: () => void;
+  removeProject: (index: number) => void;
+};

@@ -15,7 +15,7 @@ const DownloadIcon=()=>{
 }
 
 const TemplateOne = ({data}) => {
-  const { personalInfo, educationInfo, experience,skills, certificates, summary } =
+  const { personalInfo, educationInfo, experience,skills, project,certificates, summary } =
       useResumeStore();
   const resumeRef = useRef();
 
@@ -176,6 +176,22 @@ const TemplateOne = ({data}) => {
                 </div>
               ))}
             </section>
+
+             {/* Projects */}
+             <section>
+              <h2 className="text-[13px] font-bold uppercase text-[#2c3e50] border-b border-gray-300 mb-2">
+                Projects
+              </h2>
+              {project?.map((proj, idx) => (
+                <div key={idx} className="mb-4">
+                  <div className="font-bold text-[12px] text-[#2c3e50]">{proj.projectTitle}</div>
+                  <p className="text-justify">{proj.projectDescription}</p>
+                  <div className="italic text-[11px] text-[#7f8c8d]">{proj.hostUrl}</div>
+                  <div className="text-[10px] text-[#95a5a6]">{proj.gitHub}</div>
+                </div>
+              ))}
+            </section>
+
 
             {/* Key Achievements */}
             {/* <section>

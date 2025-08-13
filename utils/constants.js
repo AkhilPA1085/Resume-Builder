@@ -3,6 +3,7 @@ export const TAB_KEYS = [
     "education-info",
     "experience-info",
     "certification-info",
+    "project-info",
     "skills-info",
     "summary-info"
 ];
