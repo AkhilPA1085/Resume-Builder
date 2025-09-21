@@ -11,11 +11,9 @@ export default function ProjectsForm({
 
     const getFieldError = (index, field) =>
       errors?.[`projects_${index}_${field}`];
-
-    console.log('project',project)
     
   return (
-    <div className="mb-6">
+    <div className="mb-6 w-full">
       <h2 className="text-lg font-bold mb-4">Projects</h2>
 
       {project?.map((proj, index) => (

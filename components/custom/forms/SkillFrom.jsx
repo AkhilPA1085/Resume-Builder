@@ -5,7 +5,7 @@ import { useResumeStore } from "@/store/useResumeStore";
 export default function SkillsForm({ errors }) {
   const {skills,updateSkills,addSkills,removeSkills}=useResumeStore()
   return (
-    <div className="mb-6">
+    <div className="mb-6 w-full">
       <h2 className="text-lg font-bold mb-4">Skills</h2>
 
       <Form validationErrors={errors}>

@@ -4,7 +4,6 @@ import { Button } from "@heroui/button";
 import { useResumeStore } from "@/store/useResumeStore";
 
 export default function CertificationForm({ errors }) {
-  console.log('certificate_errors',errors)
   const { certificates, updateCertificate, addCertificate, removeCertificate } =
     useResumeStore();
 

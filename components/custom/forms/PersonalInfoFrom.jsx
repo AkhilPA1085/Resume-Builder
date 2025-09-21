@@ -10,7 +10,7 @@ export default function PersonalInfoForm({errors }) {
     updatePersonalInfo(name,value)
   }
   return (
-    <div className="mb-6">
+    <div className="mb-6 w-full">
       <h2 className="text-lg font-bold mb-4">Personal Information</h2>
 
       <Form validationErrors={errors}>

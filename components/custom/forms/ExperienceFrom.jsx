@@ -13,7 +13,7 @@ export default function ExperienceForm({
       errors?.[`experience_${index}_${field}`];
     
   return (
-    <div className="mb-6">
+    <div className="mb-6 w-full">
       <h2 className="text-lg font-bold mb-4">Experience</h2>
 
       {experience?.map((exp, index) => (

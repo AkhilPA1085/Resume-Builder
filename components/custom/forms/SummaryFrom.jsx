@@ -9,7 +9,7 @@ export default function SummaryForm({ errors }) {
     updateSummary(name, value);
   };
   return (
-    <div className="mb-6">
+    <div className="mb-6 w-full">
       <h2 className="text-lg font-bold mb-4">Professional Summary</h2>
 
       <Form validationErrors={errors}>
@@ -21,14 +21,14 @@ export default function SummaryForm({ errors }) {
           value={personalSummary}
           onChange={handleSummary}
         />
-        <Textarea
+        {/* <Textarea
           className="w-full"
-          // label="Summary"
+          label="Summary"
           placeholder="Add your job description"
           name="jobDescription"
           value={jobDescription}
           onChange={handleSummary}
-        />
+        /> */}
       </Form>
     </div>
   );
